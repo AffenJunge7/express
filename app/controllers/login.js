@@ -16,3 +16,9 @@ exports.login = function(req, res, next) {
     failureFlash: true
   })(req, res, next);
 };
+
+exports.logout = function(req, res) {
+  req.logout();
+  req.flash("success_msg", "You are logged out");
+  res.redirect("/login");
+};

@@ -20,6 +20,13 @@ if error_login && error_login.length
         button.close(type='button', data-dismiss='alert', aria-label='Close')
           span(aria-hidden='true') &times;
 
+if error_msg && error_msg.length
+  for item in error_msg
+    .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+        strong #{item}
+        button.close(type='button', data-dismiss='alert', aria-label='Close')
+          span(aria-hidden='true') &times;
+
 
 if success_msg && success_msg.length
   for succ in success_msg

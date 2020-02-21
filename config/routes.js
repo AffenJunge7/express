@@ -1,13 +1,9 @@
-"use strict";
-
-/**
- * Module dependencies.
- */
+// "use strict";
 
 const home = require("../app/controllers/home");
 const api = require("../app/controllers/api");
 const login = require("../app/controllers/login");
-
+const { ensureAuthenticated } = require("../config/auth");
 /**
  * Routes
  */
@@ -18,7 +14,9 @@ module.exports = function(app) {
   app.get("/login", login.index);
   app.post("/login", login.login);
 
-  app.get("/api", api.index);
+  app.get("/logout", login.logout);
+
+  app.get("/api", ensureAuthenticated, api.index);
   app.get("/api/users", api.users);
   app.get("/api/users/create", api.createUser);
   app.get("/api/users/show", api.showUsers);

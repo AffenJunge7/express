@@ -94,7 +94,7 @@ module.exports = function(app, passport) {
       saveUninitialized: true,
       store: new mongoStore({
         url: config.db,
-        collection: "sessionsAnother"
+        collection: "sessions"
       })
     })
   );

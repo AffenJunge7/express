@@ -1,31 +1,27 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
-/*!
- * Module dependencies.
- */
-
 // GET
-exports.index = function(req, res) {
+exports.index = (req, res) => {
   res.render("api/index", {
     title: "Waffle Api"
   });
 };
 
-exports.users = function(req, res) {
+exports.users = (req, res) => {
   res.render("api/users/index");
 };
 
-exports.createUser = function(req, res) {
+exports.createUser = (req, res) => {
   res.render("api/users/create/index");
 };
 
-exports.showUsers = function(req, res) {
+exports.showUsers = (req, res) => {
   res.render("api/users/show/index");
 };
 
 // POST
-exports.createUserPost = function(req, res) {
+exports.createUserPost = (req, res) => {
   const { email, password, password2 } = req.body;
   let errors = [];
 
@@ -75,8 +71,8 @@ exports.createUserPost = function(req, res) {
         });
 
         // Hash Password
-        bcrypt.genSalt(10, function(err, salt) {
-          bcrypt.hash(newUser.password, salt, function(err, hash) {
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
             // Set PW to has
             newUser.password = hash;
