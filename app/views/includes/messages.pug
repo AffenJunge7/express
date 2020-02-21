@@ -6,18 +6,28 @@ if info && info.length
         li #{ inf }
 
 if errors && errors.length
-  .fade.show.alert.alert-danger
-    button(class='close' type='button' data-dismiss='alert') ×
-    ul
-      for error in errors 
-        li #{ error }
+  for error in errors
+    .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+        strong #{error.msg}
+        button.close(type='button', data-dismiss='alert', aria-label='Close')
+          span(aria-hidden='true') &times;
 
-if success && success.length
-  .fade.show.alert.alert-success
-    button(class ='close' type='button' data-dismiss='alert') ×
-    ul
-      for succ in success
-        li #{ succ }
+
+if error_login && error_login.length
+  for item in error_login
+    .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+        strong #{item}
+        button.close(type='button', data-dismiss='alert', aria-label='Close')
+          span(aria-hidden='true') &times;
+
+
+if success_msg && success_msg.length
+  for succ in success_msg
+    .alert.alert-success.alert-dismissible.fade.show(role='alert')
+        strong #{succ}
+        button.close(type='button', data-dismiss='alert', aria-label='Close')
+          span(aria-hidden='true') &times;
+
 
 if warning && warning.length
   .fade.show.alert.alert-warning
