@@ -129,4 +129,9 @@ module.exports = function(app, passport) {
   //     next();
   //   });
   // }
+
+  app.use("/api/users/:id", function(req, res, next) {
+    console.log("Request Id:", req.params.id);
+    next();
+  });
 };

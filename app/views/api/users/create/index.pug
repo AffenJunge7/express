@@ -11,6 +11,9 @@ block content
             include ../../../includes/messages.pug
             form(action='/api/users/create' method='POST')
                 .form-group
+                    label(for='name') Name
+                    input#name.form-control(type='text' name='name' placeholder='Enter Name' value=name)
+                .form-group
                     label(for='email') Email
                     input#email.form-control(type='email' name='email' placeholder='Enter Email' value=email)
                 .form-group

@@ -4,15 +4,21 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
     span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
     ul.navbar-nav.mr-auto
-      li(class="isActive('/') ? 'active nav-item' : 'nav-item'")
+      li(class=isActive('/') ? 'active nav-item' : 'nav-item')
         a.nav-link(href="/" title="Home") Home
-      li(class="isActive('/api') ? 'active nav-item' : 'nav-item'")
-        a.nav-link(href="/api" title="Api") Api
+      if(isAuthenticated)
+        li(class=isActive('/api') ? 'active nav-item' : 'nav-item')
+          a.nav-link(href="/api" title="Api") Api
+        li(class=isActive('/dical') ? 'active nav-item' : 'nav-item')
+          a.nav-link(href="/dical" title="dical") DiCal
     ul.navbar-nav.my-2.my-lg-0
-      li.nav-item.dropdown
-        a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-          | Hallo, User
-        .dropdown-menu(aria-labelledby='navbarDropdown')
-          a.dropdown-item(href='/logout') Logout
-      li(class="isActive('/login') ? 'active nav-item' : 'nav-item'")
-        a.nav-link(href="/login" title="Login") Login
+      if(isAuthenticated)
+        -var user = req.user.name
+        li.nav-item.dropdown
+          a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+            | Hallo, #{user}
+          .dropdown-menu(aria-labelledby='navbarDropdown')
+            a.dropdown-item(href='/logout') Logout
+      if(!isAuthenticated)
+        li(class="isActive('/login') ? 'active nav-item' : 'nav-item'")
+          a.nav-link(href="/login" title="Login") Login

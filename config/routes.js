@@ -1,9 +1,11 @@
 // "use strict";
 
+const { ensureAuthenticated } = require("../config/auth");
+
 const home = require("../app/controllers/home");
 const api = require("../app/controllers/api");
 const login = require("../app/controllers/login");
-const { ensureAuthenticated } = require("../config/auth");
+const dical = require("../app/controllers/dical");
 /**
  * Routes
  */
@@ -19,8 +21,11 @@ module.exports = function(app) {
   app.get("/api", ensureAuthenticated, api.index);
   app.get("/api/users", api.users);
   app.get("/api/users/create", api.createUser);
-  app.get("/api/users/show", api.showUsers);
+  app.get("/api/users/allUsers", api.allUsers);
+  app.get("/api/users/:id", api.singleUser);
   app.post("/api/users/create", api.createUserPost);
+
+  app.get("/dical", ensureAuthenticated, dical.index);
 
   /**
    * Error handling

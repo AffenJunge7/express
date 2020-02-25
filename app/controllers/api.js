@@ -1,8 +1,11 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
+const passport = require("passport");
+
 // GET
 exports.index = (req, res) => {
+  console.log(passport);
   res.render("api/index", {
     title: "Waffle Api"
   });
@@ -16,8 +19,21 @@ exports.createUser = (req, res) => {
   res.render("api/users/create/index");
 };
 
-exports.showUsers = (req, res) => {
-  res.render("api/users/show/index");
+exports.allUsers = (req, res) => {
+  // res.render("api/users/show/index");
+  User.find({}, function(err, users) {
+    var userMap = {};
+
+    users.forEach(function(user) {
+      userMap[user._id] = user;
+    });
+
+    res.render("api/users/allUsers/index", { userMap });
+  });
+};
+
+exports.singleUser = (req, res) => {
+  res.render("api/users/singleUser/index");
 };
 
 // POST

@@ -12,7 +12,8 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   email: { type: String, required: true, default: "" },
   password: { type: String, default: "" },
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  name: { type: String, default: "" }
 });
 
 /**

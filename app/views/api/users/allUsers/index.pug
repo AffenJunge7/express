@@ -1,0 +1,21 @@
+extends ../../../layouts/default.pug
+
+block page-header
+    h2 Show Waffle Users
+
+block content
+    .row.mt-5
+    .col-md-6.m-auto
+        p These are the Waffle Users:
+        each user in userMap
+            .card.mt-3
+                .card-body
+                    a(href=user.id)
+                        h5.card-title #{user.name}
+                        h5.card-title #{user.email}
+                        //- h6.card-subtitle.mb-2.text-muted Card subtitle
+                        //- p.card-text
+                        //-     #{user.id}
+                        //- a.card-link(href='#') #{user.email}
+                        //- a.card-link(href='#') Another link
+
