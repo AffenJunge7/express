@@ -1,11 +1,11 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const dateFns = require("date-fns");
 
-const passport = require("passport");
+// const passport = require("passport");
 
 // GET
 exports.index = (req, res) => {
-  console.log(passport);
   res.render("api/index", {
     title: "Waffle Api"
   });
@@ -20,7 +20,6 @@ exports.createUser = (req, res) => {
 };
 
 exports.allUsers = (req, res) => {
-  // res.render("api/users/show/index");
   User.find({}, function(err, users) {
     var userMap = {};
 
@@ -33,7 +32,16 @@ exports.allUsers = (req, res) => {
 };
 
 exports.singleUser = (req, res) => {
-  res.render("api/users/singleUser/index");
+  User.find({}, (err, user) => {
+    let singleUser = user.find(function(user) {
+      return user._id == req.params.id;
+    });
+    let formattedDate = dateFns.format(singleUser.date, "dd-MM-yyyy HH:mm:ss");
+    res.render("api/users/singleUser/index", {
+      singleUser: singleUser,
+      date: formattedDate
+    });
+  });
 };
 
 // POST

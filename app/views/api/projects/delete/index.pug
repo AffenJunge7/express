@@ -1,0 +1,14 @@
+extends ../../../layouts/fullWidth.pug
+
+block page-header
+  h2 Project Delete
+
+block content
+  .row.mt-5
+      .col-md-6.m-auto
+          .card.card-body
+            p Do you really want to delete: 
+              strong #{project.name}
+            form(method="POST")
+              button(type="submit").btn.btn-block.btn-warning Yes
+              a(href="/api/projects").btn.btn-block.btn-primary No

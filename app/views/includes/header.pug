@@ -18,6 +18,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
           a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
             | Hallo, #{user}
           .dropdown-menu(aria-labelledby='navbarDropdown')
+            a.dropdown-item(href='/userProfile') Profil
             a.dropdown-item(href='/logout') Logout
       if(!isAuthenticated)
         li(class="isActive('/login') ? 'active nav-item' : 'nav-item'")
