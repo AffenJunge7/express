@@ -9,12 +9,12 @@ block content
           .card.card-body
             .messages
             include ../../../includes/messages.pug
-              form(action=`/api/project/${project.key}/edit` method='POST')
+              form(action=`/api/module/${module.name}/edit` method='POST')
                 .form-group
                   p
                     strong Project Name: 
-                      input.form-control(type='text', name="name" value=project.name, aria-label='Project Name')
+                      input.form-control(type='text', name="name" value=module.name, aria-label='Project Name')
                   p
                     strong Project Description: 
-                      input.form-control(type='text', name="description" value=project.description, aria-label='Project Description')
+                      input.form-control(type='text', name="description" value=module.description, aria-label='Project Description')
                 button.btn.btn-primary(type="submit") Speichern

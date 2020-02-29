@@ -1,14 +1,14 @@
 extends ../../layouts/fullWidth.pug
 
 block page-header
-  h2 All the Waffle-Projects
+  h2 All the Waffle-Modules
 
 block content
   .mt-5
     .messages
     include ../../includes/messages.pug
-    h5.col-2 Add Project
-    form(action='/api/projects' method='POST').d-flex
+    h5.col-2 Add Module
+    form(action='/api/modules' method='POST').d-flex
       .col-4   
         input#name.form-control(type='text' name='name' placeholder='Enter Name' value=name)
       .col-4
@@ -16,4 +16,4 @@ block content
       .col-1
         button.btn.btn-primary.btn-block(type='submit') Create
         
-  include ./projectsTable.pug
+  include ./modulesTable.pug

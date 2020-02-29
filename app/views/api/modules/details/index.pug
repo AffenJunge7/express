@@ -1,18 +1,15 @@
 extends ../../../layouts/fullWidth.pug
 
 block page-header
-  h2 Project Details
+  h2 Module Details
 
 block content
   .row.mt-5
       .col-md-6.m-auto
           .card.card-body
             p
-              strong Project Name: 
-              | #{project.name}
+              strong Module Name: 
+              | #{module.name}
             p
-              strong Project Description: 
-              | #{project.description}
-            p
-              strong Project Key: 
-              | #{project.key}
+              strong Module Description: 
+              | #{module.description}

@@ -79,7 +79,7 @@ exports.edit = function(req, res) {
   });
 };
 
-exports.editPost = function(req, res) {
+exports.update = function(req, res) {
   Project.find({ key: req.params.key }, function(err, projects) {
     const { name, description } = req.body;
     const errors = [];
@@ -119,11 +119,6 @@ exports.editPost = function(req, res) {
       });
     }
   });
-
-  // console.log(name, description);
-  // Project.find({ key: key }, function(err, project) {
-  //   // res.render("api/projects/edit/index", { project });
-  // });
 };
 
 exports.delete = function(req, res) {

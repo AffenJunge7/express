@@ -1,0 +1,14 @@
+nav(aria-label='Page navigation example')
+  ul.pagination
+    li.page-item
+      a.page-link(href=`dical.${prevWeek}`, aria-label='Previous')
+        span(aria-hidden='true') «
+        span.sr-only Previous
+    li.page-item
+      a.page-link(href=`dical`, aria-label='Today')
+        span(aria-hidden='true') Today
+        span.sr-only Today
+    li.page-item
+      a.page-link(href=`dical.${nextWeek}`, aria-label='Next')
+        span(aria-hidden='true') »
+        span.sr-only Next

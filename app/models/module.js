@@ -6,13 +6,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 /**
- * Project schema
+ * Modules schema
  */
 
-const ProjectSchema = new Schema({
+const ModuleSchema = new Schema({
   name: { type: String, required: true, default: "" },
   description: { type: String, default: "" },
-  key: { type: String, default: "" },
   date: { type: Date, default: Date.now }
 });
 
@@ -27,18 +26,18 @@ const ProjectSchema = new Schema({
  * Methods
  */
 
-ProjectSchema.method({});
+ModuleSchema.method({});
 
 /**
  * Statics
  */
 
-ProjectSchema.static({});
+ModuleSchema.static({});
 
 /**
  * Register
  */
 
-const Project = mongoose.model("Project", ProjectSchema);
+const Module = mongoose.model("Module", ModuleSchema);
 
-module.exports = Project;
+module.exports = Module;
