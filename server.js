@@ -52,7 +52,9 @@ connection
 function listen() {
   if (app.get("env") === "test") return;
   app.listen(port);
-  console.log(`Express app started on port " + ${port} and DB connected...`);
+  console.log(
+    `Express app started at localhost on port ${port} and DB connected...`
+  );
 }
 
 function connect() {

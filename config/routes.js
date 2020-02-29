@@ -2,6 +2,8 @@
 
 const { ensureAuthenticated } = require("../config/auth");
 const { customMiddleware } = require("../config/calendar");
+const bodyParser = require("body-parser");
+const urlencodedParser = bodyParser.json({ extended: false });
 
 const home = require("../app/controllers/home");
 const api = require("../app/controllers/api");
@@ -56,9 +58,9 @@ module.exports = function(app) {
   app.post("/api/module/:name/delete", ensureAuthenticated, modules.deletePost);
 
   // DiCal
-  app.get("/dical", ensureAuthenticated, customMiddleware, dical.index);
-  app.get("/dical.:day", ensureAuthenticated, customMiddleware, dical.index);
-  app.post("/dical", ensureAuthenticated, dical.createDay);
+  app.get("/dical", ensureAuthenticated, dical.index);
+  app.get("/dical.:day", ensureAuthenticated, dical.index);
+  app.post("/dical", ensureAuthenticated, urlencodedParser, dical.createDay);
   app.post("/dical.:day", ensureAuthenticated, dical.createDay);
 
   /**

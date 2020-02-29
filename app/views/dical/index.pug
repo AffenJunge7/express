@@ -8,10 +8,9 @@ block content
     if(weekdays && dayNames)
       each day,index in weekdays
         -var isToday = today[index] ? 'today' : ''
-        .col.border-left.border-secondary.text-center(class=isToday)
+        .col.border-left.border-secondary.pt-3(class=isToday)
           .col
-            h5 #{dayNames[index]}
-            span #{day}
+            h4.mb-0 #{dayNames[index]}
+            small #{day}
           .col.mt-3
-            form(method='POST')
-              button(tpye='submit').btn.btn-block.btn-success Tag erstellen
+              button(id=day.replace(/-/g,""),data-day=day).btn.btn-block.btn-success.addDayBtn Start a new day

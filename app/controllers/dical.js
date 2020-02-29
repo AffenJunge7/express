@@ -1,6 +1,8 @@
 const dateFns = require("date-fns");
 const { de } = require("date-fns/locale");
 
+const Day = require("../models/day");
+
 exports.index = function(req, res) {
   const urlDate = req.params.day
     ? new Date(Date.parse(req.params.day))
@@ -43,7 +45,7 @@ exports.index = function(req, res) {
     .map(day => dateFns.isToday(day));
 
   res.render("dical/index", {
-    title: "Dical Thingasdassd",
+    title: "Dical Thing Title",
     weekdays,
     dayNames,
     nextWeek,
@@ -53,5 +55,24 @@ exports.index = function(req, res) {
 };
 
 exports.createDay = function(req, res) {
-  console.log("Button pushed");
+  function reformatDateString(s) {
+    var b = s.split(/\D/);
+    return b.reverse().join("-");
+  }
+
+  const day = new Date(reformatDateString(req.body.date));
+
+  const data = { date: day };
+
+  const newDay = new Day({
+    date: day
+  });
+
+  newDay.save(data, (err, result) => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log("click added to db");
+    res.sendStatus(201);
+  });
 };
