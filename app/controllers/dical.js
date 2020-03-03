@@ -3,54 +3,35 @@ const { de } = require("date-fns/locale");
 
 const Day = require("../models/day");
 
+const calendarConfig = require("./calendarConfig");
+
 exports.index = function(req, res) {
-  const urlDate = req.params.day
-    ? new Date(Date.parse(req.params.day))
-    : new Date();
+  // const existingDays = Day.find(
+  //   {
+  //     date: {
+  //       $gte: calendarConfig.start(req, res),
+  //       $lte: calendarConfig.end(req, res)
+  //     }
+  //   },
+  //   (err, days) => {
+  //     for (let prop in days) {
+  //       return days[prop].date;
+  //     }
+  //   }
+  // );
 
-  const start = dateFns.startOfWeek(
-    urlDate,
-    { locale: de },
-    { weekStartsOn: 1 }
-  );
+  console.log(Day.find());
 
-  const end = dateFns.endOfWeek(urlDate, { locale: de }, { weekStartsOn: 1 });
-
-  const weekdays = dateFns
-    .eachDayOfInterval({
-      start: start,
-      end: end
-    })
-    .map(day => dateFns.format(day, "dd-MM-yyyy"));
-
-  const nextWeek = dateFns.format(dateFns.addDays(urlDate, 7), "yyyy-MM-dd");
-
-  const prevWeek = dateFns.format(dateFns.subDays(urlDate, 7), "yyyy-MM-dd");
-
-  const dayNames = [
-    "Montag",
-    "Dienstag",
-    "Mittwoch",
-    "Donnerstag",
-    "Freitag",
-    "Samstag",
-    "Sonntag"
-  ];
-
-  const today = dateFns
-    .eachDayOfInterval({
-      start: start,
-      end: end
-    })
-    .map(day => dateFns.isToday(day));
+  // console.log(existingDays);
 
   res.render("dical/index", {
     title: "Dical Thing Title",
-    weekdays,
-    dayNames,
-    nextWeek,
-    prevWeek,
-    today
+    weekdays: calendarConfig.weekdays(req, res),
+    dayNames: calendarConfig.dayNames(req, res),
+    nextWeek: calendarConfig.nextWeek(req, res),
+    prevWeek: calendarConfig.prevWeek(req, res),
+    checkToday: calendarConfig.checkToday(req, res)
+    // existingDays
   });
 };
 
@@ -62,17 +43,15 @@ exports.createDay = function(req, res) {
 
   const day = new Date(reformatDateString(req.body.date));
 
-  const data = { date: day };
-
   const newDay = new Day({
     date: day
   });
 
-  newDay.save(data, (err, result) => {
-    if (err) {
-      return console.log(err);
-    }
-    console.log("click added to db");
-    res.sendStatus(201);
-  });
+  newDay
+    .save()
+    .then(() => {
+      req.flash("success_msg", "Day created");
+      res.sendStatus(201);
+    })
+    .catch(err => console.log(err));
 };

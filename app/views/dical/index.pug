@@ -4,13 +4,14 @@ block page-header
   include ./pagination
 
 block content
+  include ../includes/messages.pug
   .d-flex.justify-content-end
     if(weekdays && dayNames)
       each day,index in weekdays
-        -var isToday = today[index] ? 'today' : ''
-        .col.border-left.border-secondary.pt-3(class=isToday)
+        -var today = checkToday[index] ? 'today' : ''
+        .col.border-left.border-secondary.pt-3(class=today)
           .col
             h4.mb-0 #{dayNames[index]}
             small #{day}
           .col.mt-3
-              button(id=day.replace(/-/g,""),data-day=day).btn.btn-block.btn-success.addDayBtn Start a new day
+              button(id=day.replace(/-/g,""),data-day=day).btn.btn-block.btn-success.addDayBtn Create a new day

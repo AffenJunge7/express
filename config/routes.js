@@ -61,7 +61,12 @@ module.exports = function(app) {
   app.get("/dical", ensureAuthenticated, dical.index);
   app.get("/dical.:day", ensureAuthenticated, dical.index);
   app.post("/dical", ensureAuthenticated, urlencodedParser, dical.createDay);
-  app.post("/dical.:day", ensureAuthenticated, dical.createDay);
+  app.post(
+    "/dical.:day",
+    ensureAuthenticated,
+    urlencodedParser,
+    dical.createDay
+  );
 
   /**
    * Error handling

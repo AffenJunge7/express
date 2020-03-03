@@ -98,7 +98,7 @@ exports.createUserPost = (req, res) => {
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
-            // Set PW to has
+            // Set PW to hash
             newUser.password = hash;
             // Save user
             newUser

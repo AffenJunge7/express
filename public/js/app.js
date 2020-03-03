@@ -2,7 +2,7 @@
 
 const buttons = document.getElementsByClassName("addDayBtn");
 
-const myFunction = function(e) {
+const addDay = function(e) {
   const date = this.getAttribute("data-day");
 
   fetch("/dical", {
@@ -14,7 +14,7 @@ const myFunction = function(e) {
   })
     .then(function(response) {
       if (response.ok) {
-        return;
+        location.reload();
       }
       throw new Error("Request failed.");
     })
@@ -24,5 +24,5 @@ const myFunction = function(e) {
 };
 
 for (var i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener("click", myFunction, false);
+  buttons[i].addEventListener("click", addDay, false);
 }
