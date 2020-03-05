@@ -10,7 +10,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
         li(class=isActive('/api') ? 'active nav-item' : 'nav-item')
           a.nav-link(href="/api" title="Api") Api
         li(class=isActive('/dical') ? 'active nav-item' : 'nav-item')
-          a.nav-link(href="/dical" title="dical") DiCal
+          a.nav-link(href="/dical."+todayDate title="dical") DiCal 
     ul.navbar-nav.my-2.my-lg-0
       if(isAuthenticated)
         -var user = req.user.name

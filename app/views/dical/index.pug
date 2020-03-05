@@ -1,7 +1,7 @@
 extends ../layouts/fullWidth.pug
 
 block page-header
-  include ./pagination
+  include ./includes/pagination
 
 block content
   include ../includes/messages.pug
@@ -13,5 +13,13 @@ block content
           .col
             h4.mb-0 #{dayNames[index]}
             small #{day}
-          .col.mt-3
-              button(id=day.replace(/-/g,""),data-day=day).btn.btn-block.btn-success.addDayBtn Create a new day
+              .col.mt-3
+                -var dayExists = existingDays.includes(day)
+                  if dayExists
+                    button(data-day=day type='button', data-toggle='modal', data-target='#exampleModal' href="/addModule").btn.btn-block.btn-info Add Module
+                  else
+                    button(id=day.replace(/-/g,""),data-day=day).btn.btn-block.btn-success.addDayBtn Create a new day
+  
+  include ./includes/moduleModal
+
+                         

@@ -1,6 +1,8 @@
 // Client-Side Code
+//
 
-const buttons = document.getElementsByClassName("addDayBtn");
+//  Add Day
+const addDayBtn = document.getElementsByClassName("addDayBtn");
 
 const addDay = function(e) {
   const date = this.getAttribute("data-day");
@@ -23,6 +25,17 @@ const addDay = function(e) {
     });
 };
 
-for (var i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener("click", addDay, false);
+for (var i = 0; i < addDayBtn.length; i++) {
+  addDayBtn[i].addEventListener("click", addDay, false);
+}
+
+// Add Module to Day
+const addModuleBtn = document.getElementsByClassName("addModuleBtn");
+
+const addModule = e => {
+  console.log("Add Module Button Works!");
+};
+
+for (var i = 0; i < addModuleBtn.length; i++) {
+  addModuleBtn[i].addEventListener("click", addModule, false);
 }

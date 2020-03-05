@@ -6,33 +6,32 @@ const Day = require("../models/day");
 const calendarConfig = require("./calendarConfig");
 
 exports.index = function(req, res) {
-  // const existingDays = Day.find(
-  //   {
-  //     date: {
-  //       $gte: calendarConfig.start(req, res),
-  //       $lte: calendarConfig.end(req, res)
-  //     }
-  //   },
-  //   (err, days) => {
-  //     for (let prop in days) {
-  //       return days[prop].date;
-  //     }
-  //   }
-  // );
+  Day.find(
+    {
+      date: {
+        $gte: calendarConfig.start(req, res),
+        $lte: calendarConfig.end(req, res)
+      }
+    },
+    function(err, days) {
+      const daysMap = [];
 
-  console.log(Day.find());
+      days.forEach(function(day) {
+        let dateFormated = dateFns.format(new Date(day.date), "dd-MM-yyyy");
+        daysMap.push(dateFormated);
+      });
 
-  // console.log(existingDays);
-
-  res.render("dical/index", {
-    title: "Dical Thing Title",
-    weekdays: calendarConfig.weekdays(req, res),
-    dayNames: calendarConfig.dayNames(req, res),
-    nextWeek: calendarConfig.nextWeek(req, res),
-    prevWeek: calendarConfig.prevWeek(req, res),
-    checkToday: calendarConfig.checkToday(req, res)
-    // existingDays
-  });
+      res.render("dical/index", {
+        title: "Dical Thing Title",
+        weekdays: calendarConfig.weekdays(req, res),
+        dayNames: calendarConfig.dayNames(req, res),
+        nextWeek: calendarConfig.nextWeek(req, res),
+        prevWeek: calendarConfig.prevWeek(req, res),
+        checkToday: calendarConfig.checkToday(req, res),
+        existingDays: daysMap
+      });
+    }
+  );
 };
 
 exports.createDay = function(req, res) {
@@ -54,4 +53,8 @@ exports.createDay = function(req, res) {
       res.sendStatus(201);
     })
     .catch(err => console.log(err));
+};
+
+exports.openModal = function(req, res) {
+  res.send("Hello!");
 };
