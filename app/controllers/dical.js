@@ -55,6 +55,19 @@ exports.createDay = function(req, res) {
     .catch(err => console.log(err));
 };
 
-exports.openModal = function(req, res) {
-  res.send("Hello!");
+exports.createModule = function(req, res) {
+  const type = "Test Issue Type";
+  const name = "Test Issue Name";
+  const newIssue = new Issue({
+    type,
+    name
+  });
+
+  newIssue
+    .save()
+    .then(() => {
+      req.flash("success_msg", "Issue Created");
+      req.sendStatus(201);
+    })
+    .catch(err => console.log(err));
 };

@@ -9,9 +9,13 @@ const Schema = mongoose.Schema;
  * Day schema
  */
 
+const IssueSchema = new Schema({
+  issueType: String
+});
+
 const DaySchema = new Schema({
-  date: { type: Date, required: true, default: Date.now }
-  // description: { type: String, default: "" }
+  date: { type: Date, required: true, default: Date.now },
+  issues: [IssueSchema]
 });
 
 /**

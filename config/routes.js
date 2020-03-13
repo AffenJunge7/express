@@ -62,6 +62,12 @@ module.exports = function (app) {
     urlencodedParser,
     dical.createDay
   )
+  app.post(
+    '/dical/createModule',
+    ensureAuthenticated,
+    urlencodedParser,
+    dical.createModule
+  )
 
   /**
    * Error handling

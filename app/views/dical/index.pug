@@ -16,10 +16,7 @@ block content
               .col.mt-3
                 -var dayExists = existingDays.includes(day)
                   if dayExists
-                    button(data-day=day type='button', data-toggle='modal', data-target='#exampleModal' href="/addModule").btn.btn-block.btn-info Add Module
+                    button(data-day=day type='button', data-toggle='modal', data-target='#addModuleModal' href="/addModule").btn.btn-block.btn-info.addModuleBtn Add Module
                   else
                     button(id=day.replace(/-/g,""),data-day=day).btn.btn-block.btn-success.addDayBtn Create a new day
-  
-  include ./includes/moduleModal
-
-                         
+  include ./includes/addModuleModal
