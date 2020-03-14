@@ -10,7 +10,8 @@ const Schema = mongoose.Schema;
  */
 
 const IssueSchema = new Schema({
-  issueType: String
+  issueType: { type: String, required: false, default: "Default Issue Type" },
+  name: { type: String, default: "Placeholder for Issue Name" }
 });
 
 const DaySchema = new Schema({

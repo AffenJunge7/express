@@ -8,15 +8,16 @@ block content
   .d-flex.justify-content-end
     if(weekdays && dayNames)
       each day,index in weekdays
+        -var tmp = day
         -var today = checkToday[index] ? 'today' : ''
         .col.border-left.border-secondary.pt-3(class=today)
           .col
             h4.mb-0 #{dayNames[index]}
             small #{day}
-              .col.mt-3
+              .col.mt-3.p-0
                 -var dayExists = existingDays.includes(day)
                   if dayExists
                     button(data-day=day type='button', data-toggle='modal', data-target='#addModuleModal' href="/addModule").btn.btn-block.btn-info.addModuleBtn Add Module
                   else
                     button(id=day.replace(/-/g,""),data-day=day).btn.btn-block.btn-success.addDayBtn Create a new day
-  include ./includes/addModuleModal
+      include ./includes/addModuleModal

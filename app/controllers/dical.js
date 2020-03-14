@@ -1,7 +1,8 @@
 const dateFns = require("date-fns");
-const { de } = require("date-fns/locale");
+// const { de } = require("date-fns/locale");
 
 const Day = require("../models/day");
+// const Issue = require("../models/issue");
 
 const calendarConfig = require("./calendarConfig");
 
@@ -56,18 +57,21 @@ exports.createDay = function(req, res) {
 };
 
 exports.createModule = function(req, res) {
-  const type = "Test Issue Type";
-  const name = "Test Issue Name";
-  const newIssue = new Issue({
-    type,
-    name
-  });
+  function reformatDateString(s) {
+    var b = s.split(/\D/);
+    return b.reverse().join("-");
+  }
 
-  newIssue
-    .save()
-    .then(() => {
-      req.flash("success_msg", "Issue Created");
-      req.sendStatus(201);
-    })
-    .catch(err => console.log(err));
+  const day = new Date(reformatDateString(req.body.date));
+
+  Day.findOne({ date: day }).then(function(day) {
+    day.issues.push({ issueType: "", name: "" });
+    day
+      .save()
+      .then(() => {
+        req.flash("success_msg", "Module created");
+        res.sendStatus(201);
+      })
+      .catch(err => console.log(err));
+  });
 };
