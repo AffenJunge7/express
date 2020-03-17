@@ -6,10 +6,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 /**
- * Modules schema
+ * issueTypes schema
  */
 
-const ModuleSchema = new Schema({
+const issueTypeSchema = new Schema({
   name: { type: String, required: true, default: "" },
   description: { type: String, default: "" },
   date: { type: Date, default: Date.now }
@@ -26,18 +26,18 @@ const ModuleSchema = new Schema({
  * Methods
  */
 
-ModuleSchema.method({});
+issueTypeSchema.method({});
 
 /**
  * Statics
  */
 
-ModuleSchema.static({});
+issueTypeSchema.static({});
 
 /**
  * Register
  */
 
-const Module = mongoose.model("Module", ModuleSchema);
+const IssueType = mongoose.model("IssueType", issueTypeSchema);
 
-module.exports = Module;
+module.exports = IssueType;

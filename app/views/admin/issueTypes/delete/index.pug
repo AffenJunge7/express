@@ -1,14 +1,14 @@
 extends ../../../layouts/fullWidth.pug
 
 block page-header
-  h2 Module Delete
+  h2 issueType Delete
 
 block content
   .row.mt-5
       .col-md-6.m-auto
           .card.card-body
             p Do you really want to delete: 
-              strong #{module.name}
+              strong #{issueType.name}
             form(method="POST")
               button(type="submit").btn.btn-block.btn-warning Yes
-              a(href="/admin/modules").btn.btn-block.btn-primary No
+              a(href="/admin/issueTypes").btn.btn-block.btn-primary No

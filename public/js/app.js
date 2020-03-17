@@ -52,9 +52,11 @@ const saveModule = function() {
   const date = $("#addModuleModal")
     .find(".modal-title span")
     .html();
+  const issueType = $("#issueType").val();
+  const name = $("#summary").val();
   fetch("/dical/createModule", {
     method: "POST",
-    body: JSON.stringify({ name: `Hallo ${date}`, date }),
+    body: JSON.stringify({ date, issueType, name }),
     headers: {
       "Content-Type": "application/json"
     }

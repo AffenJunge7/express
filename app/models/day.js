@@ -10,12 +10,12 @@ const Schema = mongoose.Schema;
  */
 
 const IssueSchema = new Schema({
-  issueType: { type: String, required: false, default: "Default Issue Type" },
+  issueType: { type: String, default: "Default Issue Type" },
   name: { type: String, default: "Placeholder for Issue Name" }
 });
 
 const DaySchema = new Schema({
-  date: { type: Date, required: true, default: Date.now },
+  date: { type: Date },
   issues: [IssueSchema]
 });
 

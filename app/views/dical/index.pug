@@ -18,6 +18,9 @@ block content
                 -var dayExists = existingDays.includes(day)
                   if dayExists
                     button(data-day=day type='button', data-toggle='modal', data-target='#addModuleModal' href="/addModule").btn.btn-block.btn-info.addModuleBtn Add Module
+                    if issues
+                      each issue,index in issues
+                        li #{issue._id}
                   else
                     button(id=day.replace(/-/g,""),data-day=day).btn.btn-block.btn-success.addDayBtn Create a new day
       include ./includes/addModuleModal

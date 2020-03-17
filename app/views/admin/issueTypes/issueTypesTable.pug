@@ -1,0 +1,24 @@
+if(issueTypes)
+  .row.mt-5
+    .col-md.m-auto
+      table.table.table-hover
+        thead
+          tr
+            th Id
+            th Name
+            th Description
+            th &nbsp;
+            th &nbsp;
+            th &nbsp;
+        tbody
+          each issueType,index in issueTypes
+            tr
+              td #{index}
+              td #{issueType.name}
+              td #{issueType.description}
+              td
+                a.btn.btn-info(href="issueTypes/"+issueType.name+"/details") Details
+              td
+                a.btn.btn-info(href="issueTypes/"+issueType.name+"/edit") Edit
+              td
+                a.btn.btn-warning(href="issueTypes/"+issueType.name+"/delete") Delete

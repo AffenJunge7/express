@@ -8,7 +8,7 @@ exports.index = function(req, res) {
     });
 
     let formattedDate = dateFns.format(singleUser.date, "dd-MM-yyyy HH:mm:ss");
-    res.render("api/users/profile/index", {
+    res.render("admin/users/profile/index", {
       singleUser: singleUser,
       date: formattedDate
     });

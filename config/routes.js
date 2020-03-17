@@ -1,21 +1,15 @@
-// "use strict";
-
 const { ensureAuthenticated } = require("../config/auth");
-// const { customMiddleware } = require("./customMiddleware");
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.json({ extended: false });
-// const dateFns = require("date-fns");
 
+const api = require("../app/controllers/api");
 const home = require("../app/controllers/home");
 const admin = require("../app/controllers/admin");
 const projects = require("../app/controllers/projects");
-const modules = require("../app/controllers/modules");
+const issueTypes = require("../app/controllers/issueTypes");
 const login = require("../app/controllers/login");
 const dical = require("../app/controllers/dical");
 const profile = require("../app/controllers/profile");
-/**
- * Routes
- */
 
 module.exports = function(app) {
   // ROOT
@@ -28,8 +22,11 @@ module.exports = function(app) {
   // LOGOUT
   app.get("/logout", login.logout);
 
-  // ADMIN
+  /**
+   * ADMIN
+   */
   app.get("/admin", ensureAuthenticated, admin.index);
+  // USERS
   app.get("/admin/users", ensureAuthenticated, admin.users);
   app.get("/admin/users/create", ensureAuthenticated, admin.createUser);
   app.get("/admin/users/allUsers", ensureAuthenticated, admin.allUsers);
@@ -37,7 +34,6 @@ module.exports = function(app) {
   app.post("/admin/users/create", ensureAuthenticated, admin.createUserPost);
   // User Profile
   app.get("/userProfile", ensureAuthenticated, profile.index);
-
   // PROJECTS
   app.get("/admin/projects", ensureAuthenticated, projects.index);
   app.post("/admin/projects", ensureAuthenticated, projects.createProject);
@@ -50,21 +46,31 @@ module.exports = function(app) {
     ensureAuthenticated,
     projects.deletePost
   );
-
-  // MODULES
-  app.get("/admin/modules", ensureAuthenticated, modules.index);
-  app.post("/admin/modules", ensureAuthenticated, modules.createModule);
-  app.get("/admin/module/:name/details", ensureAuthenticated, modules.details);
-  app.get("/admin/module/:name/edit", ensureAuthenticated, modules.edit);
-  app.post("/admin/module/:name/edit", ensureAuthenticated, modules.update);
-  app.get("/admin/module/:name/delete", ensureAuthenticated, modules.delete);
-  app.post(
-    "/admin/module/:name/delete",
+  // IssueTypes
+  app.get("/admin/issueTypes", ensureAuthenticated, issueTypes.index);
+  app.post("/admin/issueTypes", ensureAuthenticated, issueTypes.create);
+  app.get(
+    "/admin/issueTypes/:name/details",
     ensureAuthenticated,
-    modules.deletePost
+    issueTypes.details
   );
-
-  // DiCal
+  app.get("/admin/issueTypes/:name/edit", ensureAuthenticated, issueTypes.edit);
+  app.post(
+    "/admin/issueTypes/:name/edit",
+    ensureAuthenticated,
+    issueTypes.update
+  );
+  app.get(
+    "/admin/issueTypes/:name/delete",
+    ensureAuthenticated,
+    issueTypes.delete
+  );
+  app.post(
+    "/admin/issueTypes/:name/delete",
+    ensureAuthenticated,
+    issueTypes.deletePost
+  );
+  // DICAL
   app.get("/dical.:day", ensureAuthenticated, dical.index);
   app.post(
     "/dical.:day",
@@ -78,6 +84,11 @@ module.exports = function(app) {
     urlencodedParser,
     dical.createModule
   );
+
+  /**
+   * API ENDPOINTS
+   */
+  app.get("/api/modules", ensureAuthenticated, api.getAllModules);
 
   /**
    * Error handling
