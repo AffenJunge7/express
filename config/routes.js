@@ -7,7 +7,7 @@ const urlencodedParser = bodyParser.json({ extended: false });
 // const dateFns = require("date-fns");
 
 const home = require("../app/controllers/home");
-const api = require("../app/controllers/api");
+const admin = require("../app/controllers/admin");
 const projects = require("../app/controllers/projects");
 const modules = require("../app/controllers/modules");
 const login = require("../app/controllers/login");
@@ -21,42 +21,48 @@ module.exports = function(app) {
   // ROOT
   app.get("/", home.index);
 
-  // LOGIN / LOGOUT
+  // LOGIN
   app.get("/login", login.index);
   app.post("/login", login.login);
+
+  // LOGOUT
   app.get("/logout", login.logout);
 
-  // USERS
-  app.get("/api", ensureAuthenticated, api.index);
-  app.get("/api/users", ensureAuthenticated, api.users);
-  app.get("/api/users/create", ensureAuthenticated, api.createUser);
-  app.get("/api/users/allUsers", ensureAuthenticated, api.allUsers);
-  app.get("/api/users/:id", ensureAuthenticated, api.singleUser);
-  app.post("/api/users/create", ensureAuthenticated, api.createUserPost);
+  // ADMIN
+  app.get("/admin", ensureAuthenticated, admin.index);
+  app.get("/admin/users", ensureAuthenticated, admin.users);
+  app.get("/admin/users/create", ensureAuthenticated, admin.createUser);
+  app.get("/admin/users/allUsers", ensureAuthenticated, admin.allUsers);
+  app.get("/admin/users/:id", ensureAuthenticated, admin.singleUser);
+  app.post("/admin/users/create", ensureAuthenticated, admin.createUserPost);
   // User Profile
   app.get("/userProfile", ensureAuthenticated, profile.index);
 
   // PROJECTS
-  app.get("/api/projects", ensureAuthenticated, projects.index);
-  app.post("/api/projects", ensureAuthenticated, projects.createProject);
-  app.get("/api/project/:key/details", ensureAuthenticated, projects.details);
-  app.get("/api/project/:key/edit", ensureAuthenticated, projects.edit);
-  app.post("/api/project/:key/edit", ensureAuthenticated, projects.update);
-  app.get("/api/project/:key/delete", ensureAuthenticated, projects.delete);
+  app.get("/admin/projects", ensureAuthenticated, projects.index);
+  app.post("/admin/projects", ensureAuthenticated, projects.createProject);
+  app.get("/admin/project/:key/details", ensureAuthenticated, projects.details);
+  app.get("/admin/project/:key/edit", ensureAuthenticated, projects.edit);
+  app.post("/admin/project/:key/edit", ensureAuthenticated, projects.update);
+  app.get("/admin/project/:key/delete", ensureAuthenticated, projects.delete);
   app.post(
-    "/api/project/:key/delete",
+    "/admin/project/:key/delete",
     ensureAuthenticated,
     projects.deletePost
   );
 
   // MODULES
-  app.get("/api/modules", ensureAuthenticated, modules.index);
-  app.post("/api/modules", ensureAuthenticated, modules.createModule);
-  app.get("/api/module/:name/details", ensureAuthenticated, modules.details);
-  app.get("/api/module/:name/edit", ensureAuthenticated, modules.edit);
-  app.post("/api/module/:name/edit", ensureAuthenticated, modules.update);
-  app.get("/api/module/:name/delete", ensureAuthenticated, modules.delete);
-  app.post("/api/module/:name/delete", ensureAuthenticated, modules.deletePost);
+  app.get("/admin/modules", ensureAuthenticated, modules.index);
+  app.post("/admin/modules", ensureAuthenticated, modules.createModule);
+  app.get("/admin/module/:name/details", ensureAuthenticated, modules.details);
+  app.get("/admin/module/:name/edit", ensureAuthenticated, modules.edit);
+  app.post("/admin/module/:name/edit", ensureAuthenticated, modules.update);
+  app.get("/admin/module/:name/delete", ensureAuthenticated, modules.delete);
+  app.post(
+    "/admin/module/:name/delete",
+    ensureAuthenticated,
+    modules.deletePost
+  );
 
   // DiCal
   app.get("/dical.:day", ensureAuthenticated, dical.index);

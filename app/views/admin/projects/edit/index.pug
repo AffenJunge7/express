@@ -9,7 +9,7 @@ block content
           .card.card-body
             .messages
             include ../../../includes/messages.pug
-              form(action=`/api/project/${project.key}/edit` method='POST')
+              form(action=`/admin/project/${project.key}/edit` method='POST')
                 .form-group
                   p
                     strong Project Name: 

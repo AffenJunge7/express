@@ -1,0 +1,13 @@
+extends ../../layouts/default.pug
+
+block page-header
+  h2 Waffle Users  
+
+block content
+  include ../../includes/messages.pug
+  .row
+    .col-2.mt-3
+      a.btn.btn-primary.btn-block(type='button',href='/admin/users/create') Create Waffle User
+  .row  
+    .col-2.mt-3
+      a.btn.btn-primary.btn-block(type='button',href='/admin/users/allUsers') Show Waffle Users

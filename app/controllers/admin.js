@@ -2,21 +2,18 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const dateFns = require("date-fns");
 
-// const passport = require("passport");
-
-// GET
 exports.index = (req, res) => {
-  res.render("api/index", {
-    title: "Waffle Api"
+  res.render("admin/index", {
+    title: "Waffle admin"
   });
 };
 
 exports.users = (req, res) => {
-  res.render("api/users/index");
+  res.render("admin/users/index");
 };
 
 exports.createUser = (req, res) => {
-  res.render("api/users/create/index");
+  res.render("admin/users/create/index");
 };
 
 exports.allUsers = (req, res) => {
@@ -27,7 +24,7 @@ exports.allUsers = (req, res) => {
       userMap[user._id] = user;
     });
 
-    res.render("api/users/allUsers/index", { userMap });
+    res.render("admin/users/allUsers/index", { userMap });
   });
 };
 
@@ -37,7 +34,7 @@ exports.singleUser = (req, res) => {
       return user._id == req.params.id;
     });
     let formattedDate = dateFns.format(singleUser.date, "dd-MM-yyyy HH:mm:ss");
-    res.render("api/users/singleUser/index", {
+    res.render("admin/users/singleUser/index", {
       singleUser: singleUser,
       date: formattedDate
     });
@@ -70,7 +67,7 @@ exports.createUserPost = (req, res) => {
   }
 
   if (errors.length > 0) {
-    res.render("api/users/create/index", {
+    res.render("admin/users/create/index", {
       errors,
       email,
       password,
@@ -82,7 +79,7 @@ exports.createUserPost = (req, res) => {
       if (user) {
         // User exists
         errors.push({ msg: "Email is already registered" });
-        res.render("api/users/create/index", {
+        res.render("admin/users/create/index", {
           errors,
           email,
           password,
@@ -105,7 +102,7 @@ exports.createUserPost = (req, res) => {
               .save()
               .then(() => {
                 req.flash("success_msg", "User successfully registered");
-                res.redirect("/api/users");
+                res.redirect("/admin/users");
               })
               .catch(err => console.log(err));
           });

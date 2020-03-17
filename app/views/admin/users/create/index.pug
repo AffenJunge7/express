@@ -9,7 +9,7 @@ block content
         .card.card-body
             .messages
             include ../../../includes/messages.pug
-            form(action='/api/users/create' method='POST')
+            form(action='/admin/users/create' method='POST')
                 .form-group
                     label(for='name') Name
                     input#name.form-control(type='text' name='name' placeholder='Enter Name' value=name)

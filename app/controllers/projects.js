@@ -2,7 +2,7 @@ const Project = require("../models/project");
 
 exports.index = function(req, res) {
   Project.find({}, function(err, projects) {
-    res.render("api/projects/index", { projects });
+    res.render("admin/projects/index", { projects });
   });
 };
 
@@ -22,7 +22,7 @@ exports.createProject = (req, res) => {
 
   if (errors.length > 0) {
     Project.find({}, function(err, projects) {
-      res.render("api/projects/index", {
+      res.render("admin/projects/index", {
         errors,
         name,
         description,
@@ -34,7 +34,7 @@ exports.createProject = (req, res) => {
     Project.findOne({ name: name }).then(project => {
       if (project) {
         errors.push({ msg: "Project already registered" });
-        res.render("api/projects/index", {
+        res.render("admin/projects/index", {
           errors,
           name,
           description
@@ -50,7 +50,7 @@ exports.createProject = (req, res) => {
           .save()
           .then(() => {
             req.flash("success_msg", "Project successfully registered");
-            res.redirect("/api/projects");
+            res.redirect("/admin/projects");
           })
           .catch(err => console.log(err));
       }
@@ -64,7 +64,7 @@ exports.details = function(req, res) {
     let project = projects.find(function(project) {
       return project.key == projectKey;
     });
-    res.render("api/projects/details/index", { project });
+    res.render("admin/projects/details/index", { project });
   });
 };
 
@@ -75,7 +75,7 @@ exports.edit = function(req, res) {
     let project = projects.find(function(project) {
       return project.key == projectKey;
     });
-    res.render("api/projects/edit/index", { project });
+    res.render("admin/projects/edit/index", { project });
   });
 };
 
@@ -98,7 +98,7 @@ exports.update = function(req, res) {
       errors.push({ msg: "The Name should be at least 3 characters long" });
     }
     if (errors.length > 0) {
-      res.render("api/projects/edit/index", {
+      res.render("admin/projects/edit/index", {
         errors,
         name,
         description,
@@ -113,7 +113,7 @@ exports.update = function(req, res) {
         Project.update({ key: req.params.key }, updatedProject)
           .then(() => {
             req.flash("success_msg", "Project successfully updated");
-            res.redirect("/api/projects");
+            res.redirect("/admin/projects");
           })
           .catch(err => console.log(err));
       });
@@ -128,7 +128,7 @@ exports.delete = function(req, res) {
       return project.key == projectKey;
     });
 
-    res.render("api/projects/delete/index", { project });
+    res.render("admin/projects/delete/index", { project });
   });
 };
 
@@ -136,7 +136,7 @@ exports.deletePost = function(req, res) {
   Project.deleteOne({ key: req.params.key })
     .then(() => {
       req.flash("success_msg", "Project successfully deleted");
-      res.redirect("/api/projects");
+      res.redirect("/admin/projects");
     })
     .catch(err => console.log(err));
 };
