@@ -1,7 +1,8 @@
 const dateFns = require("date-fns");
 const { de } = require("date-fns/locale");
+const IssueType = require("../models/issueType");
 
-exports.urlDate = function(req, res) {
+exports.urlDate = function(req) {
   return req.params.day ? new Date(Date.parse(req.params.day)) : new Date();
 };
 

@@ -6,13 +6,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 /**
- * issueTypes schema
+ * issueType schema
  */
 
 const issueTypeSchema = new Schema({
-  name: { type: String, required: true, default: "" },
-  description: { type: String, default: "" },
-  date: { type: Date, default: Date.now }
+  name: { type: String, required: true, default: "" }
 });
 
 /**
@@ -38,6 +36,6 @@ issueTypeSchema.static({});
  * Register
  */
 
-const IssueType = mongoose.model("IssueType", issueTypeSchema);
+const IssueType = mongoose.model("issueType", issueTypeSchema);
 
 module.exports = IssueType;

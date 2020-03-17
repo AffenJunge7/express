@@ -1,17 +1,11 @@
 const dateFns = require("date-fns");
-// const { de } = require("date-fns/locale");
 
 const Day = require("../models/day");
 const Issue = require("../models/issue");
-const IssueType = require("../models/issueType");
 
 const calendarConfig = require("./calendarConfig");
 
 exports.index = function(req, res) {
-  const issueTypes = [];
-  IssueType.find({}).then(res => issueTypes.push(res));
-  console.log(issueTypes);
-
   Day.find(
     {
       date: {
@@ -21,13 +15,10 @@ exports.index = function(req, res) {
     },
     function(err, days) {
       const daysMap = [];
-      const issues = [];
-      let issueTypes = [];
 
       days.forEach(function(day) {
         let dateFormated = dateFns.format(new Date(day.date), "dd-MM-yyyy");
         daysMap.push(dateFormated);
-        Issue.find({}).then(res => issues.push(res));
       });
 
       res.render("dical/index", {
@@ -38,7 +29,6 @@ exports.index = function(req, res) {
         prevWeek: calendarConfig.prevWeek(req, res),
         checkToday: calendarConfig.checkToday(req, res),
         existingDays: daysMap,
-        issues: issues,
         issueTypes: issueTypes
       });
     }

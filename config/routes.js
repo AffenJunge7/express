@@ -89,6 +89,7 @@ module.exports = function(app) {
    * API ENDPOINTS
    */
   app.get("/api/modules", ensureAuthenticated, api.getAllModules);
+  app.get("/api/issuetypes", ensureAuthenticated, api.getAllIssueTypes);
 
   /**
    * Error handling

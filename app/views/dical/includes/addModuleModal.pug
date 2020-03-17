@@ -13,7 +13,7 @@
               label(for='issueType') Issue Type:
               select#issueType.form-control
                 each issueType,index in issueTypes
-                  option #{issueType.name}
+                  option #{index}
           .form-group
             label(for='summary') Summary:
             input#summary(type="text")
