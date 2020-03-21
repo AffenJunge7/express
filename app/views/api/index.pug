@@ -1,0 +1,17 @@
+extends ../layouts/default.pug
+
+block page-header
+  h2 All API Endpoints
+
+block content
+  .bg-dark
+    ul
+      li
+        pre Alle Tage: 
+          a(href="/api/days" target="_blank") /api/days
+      li
+        pre Alle Issues: 
+          a(href="/api/issues" target="_blank") /api/issues
+      li
+        pre Alle IssueTypes: 
+          a(href="/api/issuetypes" target="_blank") /api/issuetypes

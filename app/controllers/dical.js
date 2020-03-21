@@ -2,6 +2,7 @@ const dateFns = require("date-fns");
 
 const Day = require("../models/day");
 const Issue = require("../models/issue");
+const issueType = require("../models/issueType");
 
 const calendarConfig = require("./calendarConfig");
 
@@ -13,13 +14,19 @@ exports.index = function(req, res) {
         $lte: calendarConfig.end(req, res)
       }
     },
-    function(err, days) {
+    async function(err, days) {
       const daysMap = [];
+      const issueMap = [];
 
-      days.forEach(function(day) {
+      days.forEach(async function(day) {
         let dateFormated = dateFns.format(new Date(day.date), "dd-MM-yyyy");
         daysMap.push(dateFormated);
+
+        const issues = await Issue.find({ date: day.date });
+        issueMap.push(issues);
       });
+
+      const issueTypes = await issueType.find();
 
       res.render("dical/index", {
         title: "Dical Thing Title",
@@ -29,7 +36,8 @@ exports.index = function(req, res) {
         prevWeek: calendarConfig.prevWeek(req, res),
         checkToday: calendarConfig.checkToday(req, res),
         existingDays: daysMap,
-        issueTypes: issueTypes
+        issueTypes,
+        existingIssues: issueMap
       });
     }
   );
@@ -56,24 +64,32 @@ exports.createDay = function(req, res) {
     .catch(err => console.log(err));
 };
 
-exports.createModule = function(req, res) {
+exports.createIssue = function(req, res) {
   function reformatDateString(s) {
     var b = s.split(/\D/);
     return b.reverse().join("-");
   }
 
-  const day = new Date(reformatDateString(req.body.date));
+  const date = new Date(reformatDateString(req.body.date));
+  const issueType = req.body.issueType;
+  const summary = req.body.summary;
 
   const newIssue = new Issue({
-    // date: day
+    date,
+    issueType,
+    fields: { summary }
   });
-  console.log(req.body);
 
   newIssue
     .save()
     .then(() =>
-      Day.findOne({ date: day }).then(day => {
-        day.issues.push({ issueType: "Test1", name: "Test2" });
+      Day.findOne({ date }).then(day => {
+        day.issues.push({
+          issueType: req.body.issueType,
+          fields: {
+            summary: req.body.summary
+          }
+        });
         day
           .save()
           .then(() => {
@@ -84,6 +100,4 @@ exports.createModule = function(req, res) {
       })
     )
     .catch(err => console.log(err));
-
-  // console.log(req.body);
 };

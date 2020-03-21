@@ -10,8 +10,11 @@ const Schema = mongoose.Schema;
  */
 
 const IssueSchema = new Schema({
-  issueType: { type: String, default: "Default Issue Type" },
-  name: { type: String, default: "Placeholder for Issue Name" }
+  issueType: { type: String },
+  fields: {
+    summary: { type: String }
+  },
+  date: { type: Date }
 });
 
 /**

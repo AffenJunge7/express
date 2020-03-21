@@ -78,17 +78,33 @@ module.exports = function(app) {
     urlencodedParser,
     dical.createDay
   );
-  app.post(
-    "/dical/createModule",
-    ensureAuthenticated,
-    urlencodedParser,
-    dical.createModule
-  );
 
   /**
-   * API ENDPOINTS
+   * API
    */
-  app.get("/api/modules", ensureAuthenticated, api.getAllModules);
+  // Render /api Page
+  app.get("/admin/api/", ensureAuthenticated, api.index);
+
+  // get all days
+  app.get("/api/days", ensureAuthenticated, api.getAllDays);
+  // get single day
+  app.get("/api/days/:day", ensureAuthenticated, api.getSingleDay);
+
+  // get single Week
+  app.get("/api/week/:day", ensureAuthenticated, api.getSingleWeek);
+
+  // get all issues
+  app.get("/api/issues", ensureAuthenticated, api.getAllIssues);
+
+  // create single Issue
+  app.post(
+    "/api/issue",
+    ensureAuthenticated,
+    urlencodedParser,
+    dical.createIssue
+  );
+
+  //get all Issue-Types
   app.get("/api/issuetypes", ensureAuthenticated, api.getAllIssueTypes);
 
   /**

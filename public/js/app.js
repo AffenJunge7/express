@@ -29,7 +29,7 @@ for (var i = 0; i < addDayBtn.length; i++) {
   addDayBtn[i].addEventListener("click", addDay, false);
 }
 
-// Open "Add Module Modal"
+// Open "Add Issue Modal"
 const addModuleBtn = document.getElementsByClassName("addModuleBtn");
 
 const addModule = function() {
@@ -46,17 +46,16 @@ for (var i = 0; i < addModuleBtn.length; i++) {
 }
 
 // Save Module from "Add Module Modal"
-const saveButton = document.getElementById("modalSave");
-
-const saveModule = function() {
+function saveModule() {
   const date = $("#addModuleModal")
     .find(".modal-title span")
     .html();
   const issueType = $("#issueType").val();
-  const name = $("#summary").val();
-  fetch("/dical/createModule", {
+  const summary = $("#summary").val();
+
+  fetch("/api/issue", {
     method: "POST",
-    body: JSON.stringify({ date, issueType, name }),
+    body: JSON.stringify({ date, issueType, summary }),
     headers: {
       "Content-Type": "application/json"
     }
@@ -70,6 +69,8 @@ const saveModule = function() {
     .catch(function(error) {
       console.log(error);
     });
-};
+}
 
-saveButton.addEventListener("click", saveModule, false);
+$("#issueSaveBtn").on("click", function() {
+  saveModule();
+});

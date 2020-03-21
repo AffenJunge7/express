@@ -21,8 +21,6 @@ const config = require("./");
 const pkg = require("../package.json");
 // const passport = require("passport");
 
-const IssueType = require("../app/models/issueType");
-
 const env = process.env.NODE_ENV || "development";
 
 /**

@@ -1,3 +1,5 @@
+const IssueSchema = require("./issue");
+
 /*!
  * Module dependencies
  */
@@ -9,14 +11,9 @@ const Schema = mongoose.Schema;
  * Day schema
  */
 
-const IssueSchema = new Schema({
-  issueType: { type: String, default: "Default Issue Type" },
-  name: { type: String, default: "Placeholder for Issue Name" }
-});
-
 const DaySchema = new Schema({
   date: { type: Date },
-  issues: [IssueSchema]
+  issues: [IssueSchema.schema]
 });
 
 /**

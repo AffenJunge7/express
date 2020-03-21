@@ -2,7 +2,7 @@
   .modal-dialog(role='document')
     .modal-content
       .modal-header
-        h5#exampleModalLabel.modal-title Please select a Module for&nbsp;
+        h5#exampleModalLabel.modal-title Create Issue for&nbsp;
           span ###
         button.close(type='button', data-dismiss='modal', aria-label='Close')
           span(aria-hidden='true') ×
@@ -12,11 +12,11 @@
             .form-group
               label(for='issueType') Issue Type:
               select#issueType.form-control
-                each issueType,index in issueTypes
-                  option #{index}
-          .form-group
-            label(for='summary') Summary:
-            input#summary(type="text")
+                each issueType in issueTypes
+                  option #{issueType.name}
+            .form-group
+              label.control-label(for='name') Summary
+              input#name.form-control(type='text', placeholder='Summary')
       .modal-footer
         button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-        button.btn.btn-primary(type='button',id="modalSave") Save changes
+        button.btn.btn-primary(type='button',id="issueSaveBtn") Save changes
