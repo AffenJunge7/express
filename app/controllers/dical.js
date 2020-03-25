@@ -6,41 +6,55 @@ const issueType = require("../models/issueType");
 
 const calendarConfig = require("./calendarConfig");
 
-exports.index = function(req, res) {
-  Day.find(
+exports.index = async function(req, res) {
+  const issueTypes = [];
+  await issueType
+    .find()
+    .exec()
+    .then(issueType => issueTypes.push(issueType));
+
+  const daysMap = [];
+  await Day.find(
     {
       date: {
         $gte: calendarConfig.start(req, res),
         $lte: calendarConfig.end(req, res)
       }
     },
-    async function(err, days) {
-      const daysMap = [];
-      const issueMap = [];
-
-      days.forEach(async function(day) {
+    function(err, days) {
+      days.forEach(function(day) {
         let dateFormated = dateFns.format(new Date(day.date), "dd-MM-yyyy");
         daysMap.push(dateFormated);
-
-        const issues = await Issue.find({ date: day.date });
-        issueMap.push(issues);
-      });
-
-      const issueTypes = await issueType.find();
-
-      res.render("dical/index", {
-        title: "Dical Thing Title",
-        weekdays: calendarConfig.weekdays(req, res),
-        dayNames: calendarConfig.dayNames(req, res),
-        nextWeek: calendarConfig.nextWeek(req, res),
-        prevWeek: calendarConfig.prevWeek(req, res),
-        checkToday: calendarConfig.checkToday(req, res),
-        existingDays: daysMap,
-        issueTypes,
-        existingIssues: issueMap
       });
     }
   );
+
+  const issueMap = [];
+  await Issue.find({
+    date: {
+      $gte: calendarConfig.start(req, res),
+      $lte: calendarConfig.end(req, res)
+    }
+  })
+    .then(issues => {
+      issues.forEach(issue => {
+        dateFns.format(new Date(issue.date), "dd-MM-yyyy");
+        return issue;
+      });
+    })
+    .then(tmp => issueMap.push(tmp));
+
+  res.render("dical/index", {
+    title: "Dical Overview",
+    prevWeek: calendarConfig.prevWeek(req, res),
+    nextWeek: calendarConfig.nextWeek(req, res),
+    dayNames: calendarConfig.dayNames(req, res),
+    weekdays: calendarConfig.weekdays(req, res),
+    checkToday: calendarConfig.checkToday(req, res),
+    issueTypes,
+    existingDays: daysMap,
+    issues: issueMap
+  });
 };
 
 exports.createDay = function(req, res) {
@@ -79,6 +93,8 @@ exports.createIssue = function(req, res) {
     issueType,
     fields: { summary }
   });
+
+  console.log(req.body);
 
   newIssue
     .save()

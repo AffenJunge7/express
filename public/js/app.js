@@ -70,7 +70,6 @@ function saveModule() {
       console.log(error);
     });
 }
-
 $("#issueSaveBtn").on("click", function() {
   saveModule();
 });

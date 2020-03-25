@@ -88,9 +88,11 @@ module.exports = function(app) {
   // get all days
   app.get("/api/days", ensureAuthenticated, api.getAllDays);
   // get single day
-  app.get("/api/days/:day", ensureAuthenticated, api.getSingleDay);
+  //  /api/days/2020-03-23
+  app.get("/api/day/:day", ensureAuthenticated, api.getSingleDay);
 
   // get single Week
+  //  /api/week/2020-03-23
   app.get("/api/week/:day", ensureAuthenticated, api.getSingleWeek);
 
   // get all issues
