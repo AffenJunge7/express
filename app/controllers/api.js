@@ -1,4 +1,3 @@
-const dateFns = require("date-fns");
 const calenderConfig = require("./calendarConfig");
 
 const Day = require("../models/day");

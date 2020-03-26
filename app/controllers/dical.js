@@ -7,11 +7,7 @@ const issueType = require("../models/issueType");
 const calendarConfig = require("./calendarConfig");
 
 exports.index = async function(req, res) {
-  const issueTypes = [];
-  await issueType
-    .find()
-    .exec()
-    .then(issueType => issueTypes.push(issueType));
+  const issueTypes = await issueType.find().exec();
 
   const daysMap = [];
   await Day.find(
@@ -30,19 +26,24 @@ exports.index = async function(req, res) {
   );
 
   const issueMap = [];
-  await Issue.find({
-    date: {
-      $gte: calendarConfig.start(req, res),
-      $lte: calendarConfig.end(req, res)
-    }
-  })
-    .then(issues => {
-      issues.forEach(issue => {
-        dateFns.format(new Date(issue.date), "dd-MM-yyyy");
-        return issue;
-      });
-    })
-    .then(tmp => issueMap.push(tmp));
+  async function getIssues() {
+    const issues = Issue.find({
+      date: {
+        $gte: calendarConfig.start(req, res),
+        $lte: calendarConfig.end(req, res)
+      }
+    }).lean();
+    return issues;
+  }
+
+  const issues = await getIssues();
+  issues.forEach(issue => {
+    issueMap.push(issue);
+  });
+
+  issueMap.forEach(
+    issue => (issue.date = dateFns.format(issue.date, "dd-MM-yyyy"))
+  );
 
   res.render("dical/index", {
     title: "Dical Overview",

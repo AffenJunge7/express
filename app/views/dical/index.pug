@@ -15,13 +15,17 @@ block content
             .col.mt-3.p-0
               -var dayExists = existingDays.includes(date)
                 if dayExists
-                  button(data-day=date type='button', data-toggle='modal', data-target='#addModuleModal' href="/addModule").btn.btn-block.btn-info.addModuleBtn Add Module
-                  p Issues:
+                  button(data-day=date type='button', data-toggle='modal', data-target='#addModuleModal' href="/addModule").btn.btn-block.btn-info.addModuleBtn.mb-3 Add Module
                   each issue,index in issues
-                    li #{issue}
-                    p asd
-                    //- -var isIssueInDay =  issue.date.includes(date)
-                    //- li #{isIssueInDay}
+                    -var isIssueInDay =  issue.date.includes(date)
+                    if isIssueInDay
+                      .card.mb-2
+                        //- img.card-img-top(src='...', alt='Card image cap')
+                        .card-body
+                          h4.card-title #{issue.issueType}
+                          p.card-text
+                            | Some quick example text to build on the card title and make up the bulk of the card's content.
+                          a.btn.btn-primary(href='#') Go somewhere
                 else
                   button(id=date.replace(/-/g,""),data-day=date).btn.btn-block.btn-success.addDayBtn Create a new day
     include ./includes/addModuleModal
