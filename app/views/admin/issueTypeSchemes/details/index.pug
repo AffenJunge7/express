@@ -1,0 +1,15 @@
+extends ../../../layouts/fullWidth.pug
+
+block page-header
+  h2 Issue Type Schemes
+
+block content
+  .row.mt-5
+      .col-md-6.m-auto
+          .card.card-body
+            p
+              strong Issue Type Scheme Name: 
+              | #{issueTypeScheme.name}
+            p
+              strong Issue Type Scheme Description: 
+              | #{issueTypeScheme.description}

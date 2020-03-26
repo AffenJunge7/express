@@ -1,0 +1,19 @@
+extends ../../layouts/fullWidth.pug
+
+block page-header
+  h2 Issue Type Schemes
+
+block content
+  .mt-5
+    .messages
+    include ../../includes/messages.pug
+    h5.col-2 Add issue Types Scheme
+    form(action='/admin/issueTypeSchemes' method='POST').d-flex
+      .col-4   
+        input#name.form-control(type='text' name='name' placeholder='Enter Name' value=name)
+      .col-4
+        input#name.form-control(type='text' name='description' placeholder='Enter Description' value=description)
+      .col-1
+        button.btn.btn-primary.btn-block(type='submit') Create
+        
+  include ./issueTypeSchemeTable.pug

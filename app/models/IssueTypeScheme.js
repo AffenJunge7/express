@@ -9,7 +9,7 @@ const Schema = mongoose.Schema;
  * issueType schema
  */
 
-const issueTypeSchema = new Schema({
+const issueTypeSchemeSchema = new Schema({
   name: { type: String, required: true, default: "" },
   description: { type: String, default: "" }
 });
@@ -25,18 +25,21 @@ const issueTypeSchema = new Schema({
  * Methods
  */
 
-issueTypeSchema.method({});
+issueTypeSchemeSchema.method({});
 
 /**
  * Statics
  */
 
-issueTypeSchema.static({});
+issueTypeSchemeSchema.static({});
 
 /**
  * Register
  */
 
-const IssueType = mongoose.model("issueType", issueTypeSchema);
+const IssueTypeScheme = mongoose.model(
+  "IssueTypeScheme",
+  issueTypeSchemeSchema
+);
 
-module.exports = IssueType;
+module.exports = IssueTypeScheme;

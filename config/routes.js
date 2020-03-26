@@ -7,6 +7,7 @@ const home = require("../app/controllers/home");
 const admin = require("../app/controllers/admin");
 const projects = require("../app/controllers/projects");
 const issueTypes = require("../app/controllers/issueTypes");
+const issueTypeSchemes = require("../app/controllers/issueTypeSchemes");
 const login = require("../app/controllers/login");
 const dical = require("../app/controllers/dical");
 const profile = require("../app/controllers/profile");
@@ -70,6 +71,44 @@ module.exports = function(app) {
     ensureAuthenticated,
     issueTypes.deletePost
   );
+
+  // Issue Type Schemes
+  app.get(
+    "/admin/issueTypeSchemes",
+    ensureAuthenticated,
+    issueTypeSchemes.index
+  );
+  app.post(
+    "/admin/issueTypeSchemes",
+    ensureAuthenticated,
+    issueTypeSchemes.create
+  );
+  app.get(
+    "/admin/issueTypeSchemes/:name/details",
+    ensureAuthenticated,
+    issueTypeSchemes.details
+  );
+  app.get(
+    "/admin/issueTypeSchemes/:name/edit",
+    ensureAuthenticated,
+    issueTypeSchemes.edit
+  );
+  app.post(
+    "/admin/issueTypeSchemes/:name/edit",
+    ensureAuthenticated,
+    issueTypeSchemes.update
+  );
+  app.get(
+    "/admin/issueTypeSchemes/:name/delete",
+    ensureAuthenticated,
+    issueTypeSchemes.delete
+  );
+  app.post(
+    "/admin/issueTypeSchemes/:name/delete",
+    ensureAuthenticated,
+    issueTypeSchemes.deletePost
+  );
+
   // DICAL
   app.get("/dical.:day", ensureAuthenticated, dical.index);
   app.post(

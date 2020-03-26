@@ -1,0 +1,20 @@
+extends ../../../layouts/fullWidth.pug
+
+block page-header
+  h2 Issue Type Scheme
+
+block content
+  .row.mt-5
+      .col-md-6.m-auto
+          .card.card-body
+            .messages
+            include ../../../includes/messages.pug
+              form(action=`/admin/issueTypeSchemes/${issueTypeScheme.name}/edit` method='POST')
+                .form-group
+                  p
+                    strong Project Name: 
+                      input.form-control(type='text', name="name" value=issueTypeScheme.name, aria-label='issueTypeScheme Name')
+                  p
+                    strong Project Description: 
+                      input.form-control(type='text', name="description" value=issueTypeScheme.description, aria-label='issueTypeScheme Description')
+                button.btn.btn-primary(type="submit") Speichern
