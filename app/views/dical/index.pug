@@ -21,11 +21,12 @@ block content
                     if isIssueInDay
                       .card.mb-2
                         //- img.card-img-top(src='...', alt='Card image cap')
-                        .card-body
+                        .card-body(id=`${issue._id}`)
                           h4.card-title #{issue.issueType}
                           p.card-text
                             | Some quick example text to build on the card title and make up the bulk of the card's content.
-                          a.btn.btn-primary(href='#') Go somewhere
+                          button(data-day=date type='button', data-toggle='modal', data-target='#issueDetailModal' href="/issueDetails").btn.btn-block.btn-primary.issueDetailBtn.mb-3 Details
                 else
                   button(id=date.replace(/-/g,""),data-day=date).btn.btn-block.btn-success.addDayBtn Create a new day
     include ./includes/addModuleModal
+    include ./includes/issueDetailModal

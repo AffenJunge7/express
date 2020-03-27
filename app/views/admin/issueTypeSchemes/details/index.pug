@@ -5,11 +5,26 @@ block page-header
 
 block content
   .row.mt-5
-      .col-md-6.m-auto
-          .card.card-body
-            p
-              strong Issue Type Scheme Name: 
-              | #{issueTypeScheme.name}
-            p
-              strong Issue Type Scheme Description: 
-              | #{issueTypeScheme.description}
+    .col-md-6.m-auto
+      .card.card-body
+        p
+          strong Issue Type Scheme Name: 
+          | #{issueTypeScheme.name}
+        p
+          strong Issue Type Scheme Description: 
+          | #{issueTypeScheme.description}
+        hr
+        h5 Fields:
+        table.table.table-hover
+          thead
+            tr
+              th(scope='col') #
+              th(scope='col') Field Name
+              th(scope='col') Field Type
+          tbody
+            each field,index in issueTypeScheme.fields 
+              tr
+                th(scope='row') #{index}
+                td #{field.name}
+                td #{field.type.toUpperCase()}
+

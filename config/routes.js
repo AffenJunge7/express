@@ -98,6 +98,11 @@ module.exports = function(app) {
     ensureAuthenticated,
     issueTypeSchemes.update
   );
+  app.post(
+    "/admin/issueTypeSchemes/:name/addField",
+    ensureAuthenticated,
+    issueTypeSchemes.addField
+  );
   app.get(
     "/admin/issueTypeSchemes/:name/delete",
     ensureAuthenticated,
@@ -126,7 +131,7 @@ module.exports = function(app) {
 
   // get all days
   app.get("/api/days", ensureAuthenticated, api.getAllDays);
-  // get single day
+  // get single day by Week
   //  /api/days/2020-03-23
   app.get("/api/day/:day", ensureAuthenticated, api.getSingleDay);
 
@@ -136,6 +141,9 @@ module.exports = function(app) {
 
   // get all issues
   app.get("/api/issues", ensureAuthenticated, api.getAllIssues);
+
+  // get single issue by ID
+  app.get("/api/issue/:id", ensureAuthenticated, api.getSingleIssueID);
 
   // create single Issue
   app.post(

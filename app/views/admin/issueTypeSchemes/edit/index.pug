@@ -12,9 +12,19 @@ block content
               form(action=`/admin/issueTypeSchemes/${issueTypeScheme.name}/edit` method='POST')
                 .form-group
                   p
-                    strong Project Name: 
+                    strong Issue Type Scheme Name: 
                       input.form-control(type='text', name="name" value=issueTypeScheme.name, aria-label='issueTypeScheme Name')
                   p
-                    strong Project Description: 
+                    strong Issue Type Scheme Description: 
                       input.form-control(type='text', name="description" value=issueTypeScheme.description, aria-label='issueTypeScheme Description')
                 button.btn.btn-primary(type="submit") Speichern
+              hr
+              form(action=`/admin/issueTypeSchemes/${issueTypeScheme.name}/addField` method="POST")
+                .d-flex
+                  input(type="text" placeholder="Field Name" name="fieldname").col-4.mr-2
+                  select(name="fieldtype").col-4.mr-2
+                    option(disabled selected) Select Type
+                    option(value="text") Text
+                    option(value="select") Select
+                    option(value="radio") Radio
+                  button(type="submit").btn.btn-primary.col-2  Add Field

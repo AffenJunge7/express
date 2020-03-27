@@ -46,6 +46,12 @@ exports.getAllIssues = function(req, res) {
     res.json({ issues });
   });
 };
+// GET single Issue by ID
+exports.getSingleIssueID = function(req, res) {
+  Issue.findById(req.params.id, function(err, issue) {
+    res.json({ issue });
+  });
+};
 
 exports.getAllIssueTypes = function(req, res) {
   IssueType.find({}, function(err, issuetypes) {

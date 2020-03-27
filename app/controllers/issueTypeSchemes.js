@@ -127,6 +127,60 @@ exports.update = function(req, res) {
   });
 };
 
+exports.addField = function(req, res) {
+  IssueTypeScheme.find({ name: req.params.name }, function(
+    err,
+    issueTypeSchemes
+  ) {
+    const addFieldInputs = JSON.parse(JSON.stringify(req.body));
+    const { fieldname, fieldtype } = addFieldInputs;
+    const errors = [];
+    const issueTypeScheme = issueTypeSchemes.find(function(issueTypeScheme) {
+      return issueTypeScheme.name == req.params.name;
+    });
+
+    if (!fieldname) {
+      errors.push({ msg: "Please enter a Field Name" });
+    }
+    if (fieldname.length < 3) {
+      errors.push({ msg: "The Name should be at least 3 characters long" });
+    }
+    if (!fieldtype) {
+      errors.push({ msg: "Please select a Field Type" });
+    }
+
+    if (errors.length > 0) {
+      res.render("admin/issueTypeSchemes/edit/index", {
+        errors,
+        fieldname,
+        fieldtype,
+        issueTypeScheme
+      });
+    } else {
+      IssueTypeScheme.findOneAndUpdate(
+        { name: req.params.name },
+        {
+          $push: {
+            fields: {
+              name: addFieldInputs.fieldname,
+              type: addFieldInputs.fieldtype
+            }
+          }
+        },
+        { useFindAndModify: false },
+        function(err) {
+          if (err) {
+            res.json(err);
+          } else {
+            req.flash("success_msg", "Field added to Issue Type Scheme");
+          }
+          res.redirect("/admin/issueTypeSchemes/TAG/edit");
+        }
+      );
+    }
+  });
+};
+
 exports.delete = function(req, res) {
   IssueTypeScheme.find({}, function(err, issueTypeSchemes) {
     let issueTypeSchemeName = req.params.name;

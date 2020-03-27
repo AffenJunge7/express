@@ -9,9 +9,15 @@ const Schema = mongoose.Schema;
  * issueType schema
  */
 
+const issueTypeSchemeFields = new Schema({
+  name: { type: String, required: true },
+  type: { type: String, required: true }
+});
+
 const issueTypeSchemeSchema = new Schema({
   name: { type: String, required: true, default: "" },
-  description: { type: String, default: "" }
+  description: { type: String, default: "" },
+  fields: [issueTypeSchemeFields]
 });
 
 /**

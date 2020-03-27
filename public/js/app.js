@@ -29,9 +29,7 @@ for (var i = 0; i < addDayBtn.length; i++) {
   addDayBtn[i].addEventListener("click", addDay, false);
 }
 
-// Open "Add Issue Modal"
-const addModuleBtn = document.getElementsByClassName("addModuleBtn");
-
+// Open "Add Issue Modal" & Load Fields
 const addModule = function() {
   const date = $(this).data("day");
   $("#addModuleModal").on("show.bs.modal", function() {
@@ -40,10 +38,9 @@ const addModule = function() {
       .html(date);
   });
 };
-
-for (var i = 0; i < addModuleBtn.length; i++) {
-  addModuleBtn[i].addEventListener("click", addModule, false);
-}
+$(".addModuleBtn").one("click", function() {
+  addModule();
+});
 
 // Save Module from "Add Module Modal"
 function saveModule() {
@@ -63,8 +60,9 @@ function saveModule() {
     .then(function(response) {
       if (response.ok) {
         location.reload();
+      } else {
+        throw new Error("Request failed.");
       }
-      throw new Error("Request failed.");
     })
     .catch(function(error) {
       console.log(error);
@@ -72,4 +70,46 @@ function saveModule() {
 }
 $("#issueSaveBtn").on("click", function() {
   saveModule();
+});
+
+// Show Issue Details
+function showIssueDetails(issueID) {
+  $("#issueDetailModal").one("show.bs.modal", function() {
+    fetch(`/api/issue/${issueID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Request failed.");
+        }
+      })
+      .then(data => {
+        console.log(data);
+        $("#issueDetailModal .modal-title").html(
+          `${data.issue.issueType} - Modul`
+        );
+        const fieldnames = Object.keys(data.issue.fields);
+        const fieldvalues = Object.values(data.issue.fields);
+
+        fieldnames.forEach((fieldname, index) =>
+          $("#issueDetailModal .modal-body").append(
+            `<li>${fieldname} : ${fieldvalues[index]}</li>`
+          )
+        );
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  });
+}
+$(".issueDetailBtn").one("click", function() {
+  const issueID = $(this)
+    .parent("div")
+    .attr("id");
+  showIssueDetails(issueID);
 });
