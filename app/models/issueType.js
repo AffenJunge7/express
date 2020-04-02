@@ -11,7 +11,8 @@ const Schema = mongoose.Schema;
 
 const issueTypeSchema = new Schema({
   name: { type: String, required: true, default: "" },
-  description: { type: String, default: "" }
+  description: { type: String, default: "" },
+  issuetypescheme: { type: String, default: "" }
 });
 
 /**

@@ -156,6 +156,13 @@ module.exports = function(app) {
   //get all Issue-Types
   app.get("/api/issuetypes", ensureAuthenticated, api.getAllIssueTypes);
 
+  //get Issue-Types-Scheme
+  app.get(
+    "/api/issuetypesscheme/:name",
+    ensureAuthenticated,
+    api.getIssueTypesScheme
+  );
+
   /**
    * Error handling
    */

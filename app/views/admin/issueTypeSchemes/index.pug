@@ -10,7 +10,7 @@ block content
     h5.col-2 Add issue Types Scheme
     form(action='/admin/issueTypeSchemes' method='POST').d-flex
       .col-4   
-        input#name.form-control(type='text' name='name' placeholder='Enter Name' value=name)
+        input#name.form-control(type='text' name='name' placeholder='Enter Name' value=name || urlQueryParameter)
       .col-4
         input#name.form-control(type='text' name='description' placeholder='Enter Description' value=description)
       .col-1

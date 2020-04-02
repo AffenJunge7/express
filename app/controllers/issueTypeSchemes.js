@@ -1,8 +1,12 @@
 const IssueTypeScheme = require("../models/IssueTypeScheme");
 
 exports.index = function(req, res) {
+  const urlQueryParameter = req.query.issuetype || null;
   IssueTypeScheme.find({}, function(err, issueTypeSchemes) {
-    res.render("admin/IssueTypeSchemes/index", { issueTypeSchemes });
+    res.render("admin/IssueTypeSchemes/index", {
+      issueTypeSchemes,
+      urlQueryParameter
+    });
   });
 };
 
@@ -174,7 +178,7 @@ exports.addField = function(req, res) {
           } else {
             req.flash("success_msg", "Field added to Issue Type Scheme");
           }
-          res.redirect("/admin/issueTypeSchemes/TAG/edit");
+          res.redirect(`/admin/issueTypeSchemes/${req.params.name}/edit`);
         }
       );
     }

@@ -10,21 +10,12 @@ block content
         p
           strong Issue Type Scheme Name: 
           | #{issueTypeScheme.name}
-        p
-          strong Issue Type Scheme Description: 
+        small
+          | Issue Type Scheme Description: 
           | #{issueTypeScheme.description}
         hr
         h5 Fields:
-        table.table.table-hover
-          thead
-            tr
-              th(scope='col') #
-              th(scope='col') Field Name
-              th(scope='col') Field Type
-          tbody
-            each field,index in issueTypeScheme.fields 
-              tr
-                th(scope='row') #{index}
-                td #{field.name}
-                td #{field.type.toUpperCase()}
-
+        #list-tab.list-group(role='tablist')
+          each field,index in issueTypeScheme.fields
+            a#list-home-list.list-group-item.list-group-item-action.d-flex.justify-content-between.border.border-light.rounded.mb-2(href='#list-home', role='tab', aria-controls='home') #{field.name}
+              span.badge.badge-primary.badge-pill.d-flex.align-items-center #{field.type}

@@ -1,8 +1,15 @@
 const IssueType = require("../models/issueType");
+const IssueTypeScheme = require("../models/IssueTypeScheme");
 
-exports.index = function(req, res) {
+exports.index = async function(req, res) {
+  const issueTypeSchemes = await IssueTypeScheme.find()
+    .exec()
+    .then(res => res);
+  const issueTypeSchemesNames = issueTypeSchemes.map(
+    issueTypeScheme => issueTypeScheme.name
+  );
   IssueType.find({}, function(err, issueTypes) {
-    res.render("admin/issueTypes/index", { issueTypes });
+    res.render("admin/issueTypes/index", { issueTypes, issueTypeSchemesNames });
   });
 };
 

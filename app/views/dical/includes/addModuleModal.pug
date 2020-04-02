@@ -12,11 +12,14 @@
             .form-group
               label(for='issueType') Issue Type:
               select#issueType.form-control
-                each issueType in issueTypes
-                  option #{issueType.name}
+                option(disabled,selected) Select Issue Type
+                  each issueType in issueTypes
+                    option(value=`${issueType.name}`) #{issueType.name}
             .form-group
               label.control-label(for='name') Summary
               input#summary.form-control(type='text', placeholder='Summary')
+            hr
+            .modal-body-fields
       .modal-footer
         button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-        button.btn.btn-primary(type='button',id="issueSaveBtn") Save changes
+        button.btn.btn-primary(type='button',id="issueSaveBtn") Save

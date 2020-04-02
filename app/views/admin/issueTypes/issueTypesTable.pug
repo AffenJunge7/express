@@ -7,7 +7,7 @@ if(issueTypes)
             th Id
             th Name
             th Description
-            th &nbsp;
+            th Issue Type Scheme
             th &nbsp;
             th &nbsp;
         tbody
@@ -17,8 +17,14 @@ if(issueTypes)
               td #{issueType.name}
               td #{issueType.description}
               td
-                a.btn.btn-info(href="issueTypes/"+issueType.name+"/details") Details
+                -var issueTypeSchemesNameExists = issueTypeSchemesNames.includes(issueType.name)
+                  if !issueTypeSchemesNameExists
+                    a(href=`/admin/issueTypeSchemes?issuetype=${issueType.name}`).btn.btn-danger No Issue Type Scheme
+                  else
+                    button.btn.btn-success Issue Type Scheme
               td
-                a.btn.btn-info(href="issueTypes/"+issueType.name+"/edit") Edit
+                a.btn.btn-info(href=`issueTypes/${issueType.name}/details`) Details
               td
-                a.btn.btn-warning(href="issueTypes/"+issueType.name+"/delete") Delete
+                a.btn.btn-info(href=`issueTypes/${issueType.name}/edit`) Edit
+              td
+                a.btn.btn-warning(href=`issueTypes/${issueType.name}/delete`) Delete

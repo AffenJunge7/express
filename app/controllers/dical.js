@@ -88,14 +88,14 @@ exports.createIssue = function(req, res) {
   const date = new Date(reformatDateString(req.body.date));
   const issueType = req.body.issueType;
   const summary = req.body.summary;
+  const inputFields = req.body.inputFields;
 
   const newIssue = new Issue({
     date,
     issueType,
-    fields: { summary }
+    summary,
+    fields: inputFields
   });
-
-  console.log(req.body);
 
   newIssue
     .save()

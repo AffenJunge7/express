@@ -11,10 +11,9 @@ const Schema = mongoose.Schema;
 
 const IssueSchema = new Schema({
   issueType: { type: String },
-  fields: {
-    summary: { type: String }
-  },
-  date: { type: Date }
+  summary: { type: String },
+  date: { type: Date },
+  fields: [{}]
 });
 
 /**

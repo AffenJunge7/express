@@ -2,6 +2,7 @@ const calenderConfig = require("./calendarConfig");
 
 const Day = require("../models/day");
 const IssueType = require("../models/issueType");
+const IssueTypeScheme = require("../models/IssueTypeScheme");
 const Issue = require("../models/issue");
 
 exports.index = function(req, res) {
@@ -53,8 +54,19 @@ exports.getSingleIssueID = function(req, res) {
   });
 };
 
+// Issue Types
 exports.getAllIssueTypes = function(req, res) {
   IssueType.find({}, function(err, issuetypes) {
     res.json({ issuetypes });
+  });
+};
+
+// Issue Type Schemes (Fields)
+exports.getIssueTypesScheme = function(req, res) {
+  IssueTypeScheme.find({ name: req.params.name }, function(
+    err,
+    issuetypesschemes
+  ) {
+    res.json({ issuetypesschemes });
   });
 };
