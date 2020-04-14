@@ -163,6 +163,13 @@ module.exports = function(app) {
     api.getIssueTypesScheme
   );
 
+  //Update Issue-Types-Scheme Field Order
+  app.post(
+    "/api/issuetypescheme/updateFieldOrder",
+    ensureAuthenticated,
+    api.updateFieldOrder
+  );
+
   /**
    * Error handling
    */

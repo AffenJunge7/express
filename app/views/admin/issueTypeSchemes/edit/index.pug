@@ -27,7 +27,7 @@ block content
                     option(value="text") Text
                     option(value="textarea") Textarea
                   button(type="submit").btn.btn-primary.col-2  Add Field
-              #list-tab.list-group.mt-3(role='tablist')
+              #issueTypeSchemeDraggable.list-tab.list-group.mt-3(role='tablist')
                 each field,index in issueTypeScheme.fields
-                  a#list-home-list.list-group-item.list-group-item-action.d-flex.justify-content-between.border.border-light.rounded.mb-2(href='#list-home', role='tab', aria-controls='home') #{field.name}
+                  a#list-home-list.list-group-item.list-group-item-action.d-flex.justify-content-between.border.border-light.rounded.mb-2(role='tab', aria-controls='home') #{field.name}
                     span.badge.badge-primary.badge-pill.d-flex.align-items-center #{field.type}

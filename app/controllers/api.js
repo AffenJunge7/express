@@ -54,14 +54,14 @@ exports.getSingleIssueID = function(req, res) {
   });
 };
 
-// Issue Types
+// GET all Issue Types
 exports.getAllIssueTypes = function(req, res) {
   IssueType.find({}, function(err, issuetypes) {
     res.json({ issuetypes });
   });
 };
 
-// Issue Type Schemes (Fields)
+// GET Issue Type Schemes (Fields)
 exports.getIssueTypesScheme = function(req, res) {
   IssueTypeScheme.find({ name: req.params.name }, function(
     err,
@@ -69,4 +69,9 @@ exports.getIssueTypesScheme = function(req, res) {
   ) {
     res.json({ issuetypesschemes });
   });
+};
+
+// POST Update Issue Type Scheme Field Order
+exports.updateFieldOrder = function(req, res) {
+  // console.log(req);
 };

@@ -171,6 +171,11 @@ exports.addField = function(req, res) {
             }
           }
         },
+        {
+          $inc: {
+            "fields.$.position": 1
+          }
+        },
         { useFindAndModify: false },
         function(err) {
           if (err) {

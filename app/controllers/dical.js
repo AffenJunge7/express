@@ -101,12 +101,9 @@ exports.createIssue = function(req, res) {
     .save()
     .then(() =>
       Day.findOne({ date }).then(day => {
-        day.issues.push({
-          issueType: req.body.issueType,
-          fields: {
-            summary: req.body.summary
-          }
-        });
+        day.issues = {};
+        day.issues.issueType = issueType;
+        day.issues.fields = inputFields;
         day
           .save()
           .then(() => {

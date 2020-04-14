@@ -194,3 +194,30 @@ $("#issueDetailModal").on("hide.bs.modal", function() {
     "#issueDetailModal .modal-body-header, #issueDetailModal .modal-body-fields"
   ).html("");
 });
+
+// Admin - IssueTypeSchemes - Drag & Drop
+$(function() {
+  $("#issueTypeSchemeDraggable").sortable({
+    // handle: "a.list-group-item"
+    opacity: 0.6,
+    cursor: "move",
+    tolerance: "pointer",
+    containment: "parent",
+    forcePlaceholderSize: true,
+    update: function() {
+      $("body").css("cursor", "progress");
+      let newFieldOrder = $("a", this);
+      console.log(newFieldOrder);
+      $.post("/api/issuetypescheme/updateFieldOrder");
+      // var order = $(this).sortable("serialize");
+      // console.log(order);
+      // $.post("/ajax.php?do=sort&" + order, function(data) {
+      //   $("body").css("cursor", "default");
+      // });
+    },
+    create: function() {
+      var list = this;
+      $(list).height($(list).height());
+    }
+  });
+});

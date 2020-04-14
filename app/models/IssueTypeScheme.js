@@ -11,7 +11,8 @@ const Schema = mongoose.Schema;
 
 const issueTypeSchemeFields = new Schema({
   name: { type: String, required: true },
-  type: { type: String, required: true }
+  type: { type: String, required: true },
+  position: { type: Number, default: 0 }
 });
 
 const issueTypeSchemeSchema = new Schema({
